@@ -5,11 +5,14 @@ Designed to work where Plex Media Server is running on the same Linux system as 
 ## Installation/Configuration of `pmscan`
 `pmscan` is a simple utility that does nothing more than call the standard Plex Media Scanner after establishing an imitation Plex environment.
 The entire contents of the script is essentially exported variables. **These may be different on various installations of Plex,** so what follows are a few steps that can help you discover what the contents of `pmscan` should be on *your* system.
+
 1. Load up Plex Web in your web browser and browse to a section containing media.
+
 2. Prepare this command in the shell:
 ```sh
 $ sudo cat /proc/`pidof Plex\ Media\ Scanner`/environ
 ```
+
 3. Click the "Refresh" button in the Plex Web interface and quickly switch back to your shell and run the command.
 
 This should print the environment of the currently running `Plex Media Scanner`, albeit in one line, but this is the basis for a custom version of `pmscan`. Seperate the string into lines, add `export` before each, and include the final call to the `Plex Media Scanner` binary as in the provided version of `pmscan` (correcting the location if necessary). 
