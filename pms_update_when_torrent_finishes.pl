@@ -1,22 +1,22 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-our $storage = '/srv/data/Media';
 our $logfile = "/var/lib/transmission/transmission-pms-update.log";
-#our $plex_media_scanner = '/usr/lib/plexmediaserver/Plex Media Scanner';
 our $plex_media_scanner = '/usr/local/bin/pmscan';
 our $torrent_dir = $ENV{'TR_TORRENT_DIR'};
 our $user = $ENV{'USER'};
-#  1: Movies
-#  2: TV Shows
-#  3: Documentaries
-#  4: Home Movies
-#  5: Sports
 
+# the root of your media library
+our $storage = '/srv/data/Media';
+
+# the sections as numbered by Plex. These are also subdirectories of $storage.
+#  3: Movies
+#  2: TV Shows
 our %sections = (
 	3 => 'Movies',
 	2 => 'TV Shows'
 );
+
 open(LOG,'>>',$logfile) or die $!;
 print LOG localtime()." env: $torrent_dir\n";
 for my $number ( keys %sections ) {
