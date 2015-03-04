@@ -48,20 +48,9 @@ $ sudo cp pms_update_when_torrent_finishes.pl /var/lib/transmission/
 
 ## Triggering the Script with Transmission
 There wasn't much documentation on this feature of Transmission, but after some deep searches I found that transmission natively supports calling a script on completion.
-Basically we need to shutdown the `transmission-daemon`, edit its configuration files, and restart it.
-
+(Adjust your hostname, port, user/pass as required.)
 ```sh
-$ sudo systemctl stop transmission.service
-$ sudo -u transmission nano -w /var/lib/transmission/.config/transmission-daemon/settings.json
-```
-Add (or replace, if these settings are already in the JSON array) the following two lines:
-```json
-    "script-torrent-done-enabled": true,
-    "script-torrent-done-filename": "/var/lib/transmission/pms_update_when_torrent_finishes.pl",
+$ transmission-remote localhost:9091 --auth [user]:[pass] --torrent-done-script /var/lib/transmission/pms_update_when_torrent_finishes.pl
 ```
 
-Then, restart transmission-daemon:
-```sh
-$ sudo systemctl start transmission.service
-```
 Now, download something to a directory that Plex is indexing, and see if it works.
